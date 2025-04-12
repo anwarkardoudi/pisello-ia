@@ -1,0 +1,444 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    background-color: #1e1e2f;
+    color: #ffffff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .chat-container {
+    width: 100%;
+    max-width: 600px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background-color: #2c2c3e;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+  
+  .chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-message,
+  .ai-message {
+    max-width: 80%;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    line-height: 1.4;
+  }
+  
+  .user-message {
+    background-color: #3d3d5c;
+    align-self: flex-end;
+  }
+  
+  .ai-message {
+    background-color: #444466;
+    align-self: flex-start;
+  }
+  
+  .chat-input {
+    display: flex;
+    padding: 16px;
+    background-color: #252535;
+    border-top: 1px solid #3d3d5c;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    outline: none;
+    background-color: #3a3a4f;
+    color: white;
+  }
+  
+  .chat-input button {
+    margin-left: 12px;
+    padding: 12px 20px;
+    background-color: #5b5be4;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .chat-input button:hover {
+    background-color: #7777f0;
+  }
+
+  .typing-indicator {
+    align-self: flex-start;
+    margin-top: 5px;
+    padding: 10px 14px;
+    background-color: #3a3a55;
+    border-radius: 16px;
+    font-style: italic;
+    color: #aaa;
+    display: flex;
+    gap: 2px;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .dot {
+    animation: blink 1s infinite;
+  }
+  
+  .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes blink {
+    0%, 20% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Tema scuro (default) */
+body {
+  background-color: #1e1e2f;
+  color: #ffffff;
+}
+
+.chat-container {
+  background-color: #2c2c3e;
+}
+
+.chat-input input {
+  background-color: #3a3a4f;
+  color: white;
+}
+
+.chat-input button {
+  background-color: #5b5be4;
+}
+
+.typing-indicator {
+  background-color: #3a3a55;
+}
+
+/* Tema chiaro */
+body.light-theme {
+  background-color: #f4f4f9;
+  color: #333333;
+}
+
+.chat-container.light-theme {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input.light-theme input {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.chat-input.light-theme button {
+  background-color: #4d6ef7;
+}
+
+.chat-input.light-theme input:focus {
+  background-color: #e0e0e0;
+}
+
+.typing-indicator.light-theme {
+  background-color: #ececec;
+}
+
+/* Stile per il tasto invio */
+#send-button {
+  background-color: #f39c12;  /* Colore dorato */
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Icona dell'invio */
+#send-button i {
+  color: #fff;  /* Colore bianco per l'icona */
+  font-size: 1.2rem;
+}
+
+/* Effetto hover */
+#send-button:hover {
+  background-color: #e67e22;  /* Colore di sfondo che cambia al passaggio del mouse */
+  transform: scale(1.1);  /* Leggera espansione al passaggio del mouse */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Effetto al clic */
+#send-button:active {
+  transform: scale(0.95);  /* Rimpicciolisce il tasto quando viene cliccato */
+}
+
+/* Stile per la bolla dell'IA */
+.ai-message {
+  background-color: #3498db;  /* Colore di sfondo per la bolla dell'IA */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  max-width: 80%;
+}
+
+/* Stile per l'icona dell'IA */
+.ai-message i {
+  margin-right: 10px;  /* Spazio tra l'icona e il testo */
+  font-size: 1.5rem;  /* Dimensione dell'icona */
+  color: white;
+}
+
+/* Stile per il testo del messaggio dell'IA */
+.ai-message span {
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Animazione effetto digitazione per l'IA */
+@keyframes typing {
+  0% {
+    width: 0;
+    border-right: 3px solid rgba(255, 255, 255, 0.75);
+  }
+  100% {
+    width: 100%;
+    border-right: none;
+  }
+}
+
+/* Applicare l'animazione al testo della bolla dell'IA */
+.ai-message span {
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 2s steps(30) 1s 1 normal both;
+}
+
+/* Pannello laterale */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;  /* Inizialmente nascosto fuori dallo schermo */
+  width: 250px;
+  height: 100%;
+  background-color: #2c3e50;
+  color: white;
+  transition: left 0.3s ease;  /* Animazione per l'entrata e l'uscita */
+  padding-top: 20px;
+  z-index: 1000;  /* Assicurati che il pannello sia sopra gli altri elementi */
+  overflow: hidden;  /* Evita la sovrapposizione */
+}
+
+/* L'icona non deve interferire con le voci del menu */
+.sidebar-icon {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #2980b9;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;  /* Assicurati che l'icona sia sopra il pannello */
+  transition: transform 0.3s ease;
+}
+
+/* Voci del menu */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 60px;  /* Distanziamento dalle voci per evitare sovrapposizioni */
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #34495e;
+}
+
+/* Sezione "My Account" in fondo al pannello */
+.account-section {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #2c3e50;
+  border-top: 1px solid #34495e; /* Separatore sottile */
+}
+
+/* Icona del profilo */
+.profile-icon {
+  display: inline-block;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Link "My Account" */
+.account-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 5px;
+  transition: color 0.3s;
+}
+
+.account-link:hover {
+  color: #3498db;
+}
+/* Logo PiselloAI sopra il pannello */
+.sidebar-logo {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #34495e; /* Linea separatrice */
+}
+
+.sidebar-logo h2 {
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 2px;  /* Distanza tra le lettere */
+  text-transform: uppercase; /* Testo in maiuscolo */
+}
+
+/* Pannello laterale */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #2c3e50;
+  color: white;
+  transition: left 0.3s ease;
+  padding-top: 10px;  /* Aggiungi uno spazio sopra */
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* Icona profilo e My Account */
+.account-section {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #2c3e50;
+  border-top: 1px solid #34495e;
+}
+
+.profile-icon {
+  display: inline-block;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.account-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 5px;
+  transition: color 0.3s;
+}
+
+.account-link:hover {
+  color: #3498db;
+}
+/* Messaggi utente */
+.user-message {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  max-width: 80%;
+  align-self: flex-end;
+}
+
+/* Messaggi IA */
+.ai-message {
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  max-width: 80%;
+  align-self: flex-start;
+}
